@@ -1,0 +1,29 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>SliceAndDice</PageTitle>
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row">
+            <a href="/main">Главная</a>
+
+            <a href="/about">О нас</a>
+
+            <a href="/menu">Меню</a>
+
+            <a href="/BuyAndDelivery">Оплата и доставка</a>
+
+            <div class="my-avatar">
+                <a href="/profile"><img src="css/Images/avatar.png" /></a>
+            </div>
+        </div>
+
+        <article class="content">
+            @Body
+        </article>
+    </main>
+</div>

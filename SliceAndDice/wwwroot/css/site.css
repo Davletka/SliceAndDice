@@ -1,0 +1,381 @@
+@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+
+html, body {
+    font-family: 'Barlow', sans-serif;
+    margin: 0;
+    padding: 0;
+
+}
+
+h1:focus {
+    outline: none;
+}
+
+a, .btn-link {
+    color: #0071c1;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.content {
+
+}
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid red;
+}
+
+.validation-message {
+    color: red;
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
+
+.blazor-error-boundary {
+    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTYiIGhlaWdodD0iNDkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIG92ZXJmbG93PSJoaWRkZW4iPjxkZWZzPjxjbGlwUGF0aCBpZD0iY2xpcDAiPjxyZWN0IHg9IjIzNSIgeT0iNTEiIHdpZHRoPSI1NiIgaGVpZ2h0PSI0OSIvPjwvY2xpcFBhdGg+PC9kZWZzPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMCkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMzUgLTUxKSI+PHBhdGggZD0iTTI2My41MDYgNTFDMjY0LjcxNyA1MSAyNjUuODEzIDUxLjQ4MzcgMjY2LjYwNiA1Mi4yNjU4TDI2Ny4wNTIgNTIuNzk4NyAyNjcuNTM5IDUzLjYyODMgMjkwLjE4NSA5Mi4xODMxIDI5MC41NDUgOTIuNzk1IDI5MC42NTYgOTIuOTk2QzI5MC44NzcgOTMuNTEzIDI5MSA5NC4wODE1IDI5MSA5NC42NzgyIDI5MSA5Ny4wNjUxIDI4OS4wMzggOTkgMjg2LjYxNyA5OUwyNDAuMzgzIDk5QzIzNy45NjMgOTkgMjM2IDk3LjA2NTEgMjM2IDk0LjY3ODIgMjM2IDk0LjM3OTkgMjM2LjAzMSA5NC4wODg2IDIzNi4wODkgOTMuODA3MkwyMzYuMzM4IDkzLjAxNjIgMjM2Ljg1OCA5Mi4xMzE0IDI1OS40NzMgNTMuNjI5NCAyNTkuOTYxIDUyLjc5ODUgMjYwLjQwNyA1Mi4yNjU4QzI2MS4yIDUxLjQ4MzcgMjYyLjI5NiA1MSAyNjMuNTA2IDUxWk0yNjMuNTg2IDY2LjAxODNDMjYwLjczNyA2Ni4wMTgzIDI1OS4zMTMgNjcuMTI0NSAyNTkuMzEzIDY5LjMzNyAyNTkuMzEzIDY5LjYxMDIgMjU5LjMzMiA2OS44NjA4IDI1OS4zNzEgNzAuMDg4N0wyNjEuNzk1IDg0LjAxNjEgMjY1LjM4IDg0LjAxNjEgMjY3LjgyMSA2OS43NDc1QzI2Ny44NiA2OS43MzA5IDI2Ny44NzkgNjkuNTg3NyAyNjcuODc5IDY5LjMxNzkgMjY3Ljg3OSA2Ny4xMTgyIDI2Ni40NDggNjYuMDE4MyAyNjMuNTg2IDY2LjAxODNaTTI2My41NzYgODYuMDU0N0MyNjEuMDQ5IDg2LjA1NDcgMjU5Ljc4NiA4Ny4zMDA1IDI1OS43ODYgODkuNzkyMSAyNTkuNzg2IDkyLjI4MzcgMjYxLjA0OSA5My41Mjk1IDI2My41NzYgOTMuNTI5NSAyNjYuMTE2IDkzLjUyOTUgMjY3LjM4NyA5Mi4yODM3IDI2Ny4zODcgODkuNzkyMSAyNjcuMzg3IDg3LjMwMDUgMjY2LjExNiA4Ni4wNTQ3IDI2My41NzYgODYuMDU0N1oiIGZpbGw9IiNGRkU1MDAiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvZz48L3N2Zz4=) no-repeat 1rem/1.8rem, #b32121;
+    padding: 1rem 1rem 1rem 3.7rem;
+    color: white;
+}
+
+    .blazor-error-boundary::after {
+        content: "An error has occurred."
+    }
+
+
+
+
+
+/*                                        */
+
+
+.backGroundUp {
+    width: 100%;
+    height: 328px;
+    background: #FFC61B;
+    display: flex;
+    justify-content: center;
+}
+
+.backGroundDown {
+    width: 100%;
+    height: 778px;
+    background-image: url("Images/background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
+    justify-content: center;
+    justify-content: center;
+}
+
+.inputAuthoRectangle {
+    padding-left: 1%;
+    width: 426px;
+    height: 93px;
+    background: #FFFFFF;
+    border-radius: 30px;
+    font-size: 46px;
+    outline: none;
+    display: block;
+    margin-bottom: 2%;
+    font-weight: 600;
+}
+
+.items {
+    padding-top: 2%;
+    display: block;
+    margin-left: 40%;
+}
+/*@font-face{
+    font-family: 'Barlow';
+    src: local('Barlow'),
+        url('Fonts/Barlow-SemiBold.ttf');
+}*/
+.logoImage {
+    width: 294px;
+    height: 292px;
+    background: url("Images/logoImage.png")
+}
+
+.btnAuth {
+    margin-left: 2%;
+    width: 373px;
+    height: 93px;
+    background: #FFFFFF;
+    border-radius: 30px;
+    font-size: 46px;
+    font-weight: 600;
+    transition: 0.3s linear;
+}
+
+    .btnAuth:hover {
+        background-color: #FFC61B;
+        color: white;
+        font-size: 48px;
+    }
+
+.hyperLinkReg {
+    margin-top: 30px;
+    width: 377px;
+    margin-left: 9%;
+    height: 40px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 35px;
+    display: flex;
+    align-items: flex-end;
+    text-align: center;
+    text-decoration-line: none;
+    color: rgba(255, 255, 255, 0.67);
+}
+
+    .hyperLinkReg:hover {
+        color: #FFC61B;
+        text-decoration: underline;
+    }
+
+
+
+
+
+.webs {
+    display: block;
+    margin-top: 70%;
+}
+
+.webs-item {
+    margin-left: 25%;
+    margin-bottom: 20%;
+    cursor:pointer;
+}
+
+    .webs-item:hover {
+        transform: scale(1);
+        transition: 1s;
+    }
+
+
+
+.top-row a {
+    margin-right: 25px;
+    color:white;
+    font-size:36px;
+    text-decoration:none;
+    font-weight:800;
+
+    transition: 0.4s linear;
+}
+
+    .top-row a:hover {
+        color: #FFC61B;
+        text-decoration:underline;
+        font-size:38px;
+    }
+
+
+.my-avatar {
+    position: fixed;
+    right: 22px;
+    top: 22px;
+    transition: 1s linear;
+    cursor: pointer;
+}
+
+    .my-avatar:hover {
+        transform: scale(1.2);
+
+    }
+
+
+
+
+
+
+
+    .profile-form {
+    }
+
+.profile-items {
+
+    margin-top:3%;
+    display:grid;
+
+    justify-content:center;
+    align-items:center;
+
+
+}
+
+.profile-items input {
+    margin-bottom: 20px;
+    display:block;
+    font-weight:600;
+    height:93px;
+    width:426px;
+    font-size:46px;
+    background-color:white;
+    outline:none;
+    border-radius:30px;
+    padding-left:3%;
+}
+
+.profile-items button {
+    display:block;
+    margin-left:8%;
+    width:347px;
+    height:93px;
+    border-radius:30px;
+    font-size:46px;
+    font-weight:600;
+
+    transition: 0.3s linear;
+}
+
+    .profile-items button:hover {
+        background-color: #FFC61B;
+        font-size:48px;
+    }
+
+
+.about-form {
+    width: 1419px;
+    height: 795px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 31px;
+    padding-left:2.5%;
+    padding-top:2%;
+    margin-left:7%;
+}
+
+.about-text {
+    font-weight: 800;
+    font-size: 45px;
+    color: white;
+    line-height: 58px;
+}
+
+
+.pizza-img {
+    position: absolute;
+    width: 683px;
+    height: 586px;
+    left: 220px;
+    top: 200px;
+}
+
+.delivery-text {
+    position: absolute;
+    width: 481px;
+    height: 101px;
+    left: 1159px;
+    top: 233px;
+    font-weight: 800;
+    font-size: 35px;
+    line-height: 38px;
+
+    text-align: center;
+    color: #FFC61B;
+}
+
+.slogan-text {
+    /* Пиццерия, после которой не хочешь батыр! */
+
+    position: absolute;
+    width: 908px;
+    height: 249px;
+    left: 970px;
+    top: 430px;
+    font-weight: 800;
+    font-size: 64px;
+    line-height: 77px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.bottom-text {
+    /* Сочная.Вкусная.Для вас */
+
+    position: absolute;
+    width: 550px;
+    height: 42px;
+    left: 1025px;
+    top: 780px;
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 48px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.text-srok {
+    /* Мы открыты 10:00 до 22:00 */
+
+    position: absolute;
+    width: 380px;
+    height: 33px;
+    left: 1015px;
+    top: 860px;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    color: #A8A8A8;
+}
+
+.gps-img {
+    /* image 12 */
+
+    position: absolute;
+    width: 43px;
+    height: 43px;
+    left: 1408px;
+    top: 850px;
+    background: url(image.png);
+}
+
+.town {
+    /* Г.Казань, ул.Ершова 3А */
+
+    position: absolute;
+    width: 350px;
+    height: 42px;
+    left: 1459px;
+    top: 855px;
+    font-weight: 800;
+    font-size: 27px;
+    line-height: 32px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.town-text {
+    color:rgba(255, 198, 27, 1)
+}
