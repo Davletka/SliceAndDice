@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SliceAndDice", "SliceAndDice\SliceAndDice.csproj", "{C794F92A-C2B8-4D54-BCF6-326848190136}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SliceAndDice", "SliceAndDice\SliceAndDice.csproj", "{C794F92A-C2B8-4D54-BCF6-326848190136}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,4 @@
-﻿
+﻿@inject NavigationManager nav;
 @page "/menu"
 
 <div class="card-menu">
@@ -77,11 +77,14 @@
         </div>
 
         <div class="btn-card-menu">
-            <button class="btn-basket-menu">В Корзину</button>
+            <button class="btn-basket-menu" @onclick="z">В Корзину</button>
         </div>
     </div>
 </div>
 
 @code {
-
+    private void z()
+    {
+        nav.NavigateTo("/zakaz");
+    }
 }

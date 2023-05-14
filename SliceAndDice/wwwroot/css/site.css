@@ -484,7 +484,6 @@ a, .btn-link {
     transition: 0.4s linear;
 
     margin-left:42%;
-
 }
 
     .zakaz-pay:hover {
@@ -492,3 +491,351 @@ a, .btn-link {
         background-color: #FFC61B;
         color: white;
     }
+
+
+
+
+.zakaz-form {
+    background: rgba(255, 255, 255, 0.1);
+    margin-left:18%;
+    margin-top:3%;
+    width:1069px;
+    height:auto;
+}
+
+.title-zakaz {
+    color: #F92C2C;
+    font-size:49px;
+    font-weight:800;
+    margin-left:36%;
+}
+
+.text-zakaz {
+    color: white;
+    font-size: 38px;
+    font-weight: 800;
+    display:flex;
+    padding-bottom:10%;
+    align-items:center;
+}
+
+.count-zakaz {
+    margin-left:10%;
+}
+
+.price-zakaz {
+    margin-left: 10%;
+}
+
+.total-price {
+    color: white;
+    font-size: 40px;
+    font-weight: 800;
+    margin-left:74%;
+    position:relative;
+}
+
+.form-user {
+    width: 1419px;
+    height: 230px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius:30px;
+    color:white;
+    font-size:40px;
+    font-weight:800;
+
+    margin-top:2%;
+    margin-left: 7.5%;
+}
+
+.role-user {
+    background: rgba(255, 255, 255, 0.1);
+    color:white;
+    width:430px;
+    height:87px;
+    font-size:40px;
+    border-radius:30px;
+    font-weight:800;
+    padding-left:1.5%;
+    margin-top: 3%;
+    margin-left: 4%;
+    margin-right:2%;
+}
+
+    .role-user option {
+        color: black;
+    }
+
+.zp-user {
+    width: 355px;
+    height: 87px;
+    border-radius: 30px;
+    outline: none;
+    padding-left: 1.5%;
+    font-weight: 800;
+    background-color: inherit;
+    color: white;
+}
+
+.name-user {
+    padding-top: 1.5%;
+    margin-left:5%;
+}
+
+
+
+.zp-user::placeholder {
+    color: white;
+}
+
+
+.btn-job {
+    width: 322px;
+    height: 93px;
+    border-radius: 30px;
+    font-size: 46px;
+    color: black;
+    background-color: white;
+    font-weight: 800;
+    transition: 0.4s linear;
+    margin-left:10%;
+}
+
+.btn-job:hover {
+    font-size: 47px;
+    background-color: #FFC61B;
+    color: white;
+}
+
+
+.recipe-form {
+    background: rgba(255, 255, 255, 0.1);
+    width:1419px;
+    height:230px;
+    border-radius:30px;
+    display:flex;
+    margin-left:7%;
+    margin-top:4%;
+}
+
+.name-recipe {
+    color: white;
+    font-size: 40px;
+    font-weight: 800;
+
+    margin-top:5%;
+    margin-left:5%;
+    margin-right:7%;
+}
+
+.recipes-btn {
+    background-color:white;
+    color:black;
+    font-size:40px;
+    font-weight:800;
+    margin-top:5%;
+    margin-right:3%;
+    height:92px;
+    width:360px;
+    border-radius: 30px;
+
+    transition:0.3s linear;
+}
+
+    .recipes-btn:hover {
+        background-color: #FFC61B;
+        color: white;
+    }
+
+
+.title-page {
+    color: white;
+    font-size: 49px;
+    font-weight: 800;
+    position:relative;
+    margin-top:2%;
+    margin-left:34%;
+}
+
+.add-plus {
+    margin-left:4%;
+    margin-top:5.5%;
+    cursor:pointer;
+    margin-right:12%;
+    transition: 1s linear;
+}
+
+.inputs-recipe {
+    display:grid;
+    justify-content:center;
+    align-items:center;
+}
+
+.inputs-recipe input {
+    color: black;
+    font-size: 40px;
+    font-weight: 800;
+    background-color: white;
+    border-radius: 30px;
+    text-align: center;
+    outline: none;
+    margin-bottom:3%;
+}
+
+.name-recipe-add {
+    height:93px;
+    width:571px;
+    margin-left:17%;
+}
+
+.bottom-q {
+    display:flex;
+}
+
+.discription-add {
+    width: 857px;
+    height: 433px;
+    flex-wrap: wrap;
+}
+
+.price-add {
+    width:185px;
+    height:93px;
+    margin-left:10%;
+    margin-right:5%;
+}
+
+.role-user-money {
+    margin-left: 5%;
+    margin-top:1.5%;
+}
+
+.main-div {
+    width: 100%;
+    display: flex;
+}
+
+.money-employee {
+    margin-left:90%;
+    margin-top: -10%;
+}
+
+.btn-add-recipe {
+    background-color: white;
+    color: black;
+    font-size: 42px;
+    font-weight: 800;
+    width: 425px;
+    height: 92px;
+    border-radius: 30px;
+}
+
+
+.btn-job-money {
+    width: 322px;
+    height: 93px;
+    border-radius: 30px;
+    font-size: 46px;
+    color: black;
+    background-color: white;
+    font-weight: 800;
+    transition: 0.4s linear;
+    margin-left: 75%;
+    margin-top:2%;
+}
+
+    .btn-job-money:hover {
+        font-size: 47px;
+        background-color: #FFC61B;
+        color: white;
+    }
+
+
+
+.report-form {
+    color:white;
+    font-size:40px;
+    font-weight:800;
+    margin-top:2%;
+    margin-left:35%;
+    display:grid;
+}
+
+.title-report {
+    font-size:50px;
+}
+
+.start-title {
+    background-color:white;
+    color:black;
+    font-size:40px;
+    border-radius:30px;
+    height:93px;
+    width:571px;
+    text-align:center;
+    outline:none;
+    font-weight:800;
+    margin-bottom:3%;
+}
+
+.btn-create {
+    width: 322px;
+    height: 93px;
+    border-radius: 30px;
+    font-size: 46px;
+    color: black;
+    background-color: white;
+    font-weight: 800;
+    transition: 0.4s linear;
+    margin-left:11%;
+}
+
+.btn-create:hover {
+    font-size: 47px;
+    background-color: #FFC61B;
+    color: white;
+}
+
+.card-report {
+    background: rgba(255, 255, 255, 0.1);
+    width:1419px;
+    height:160px;
+    margin-left:7%;
+    border-radius:30px;
+    margin-top:5%;
+    display:flex;
+
+}
+
+.title-report-card {
+    color: white;
+    font-size: 40px;
+    font-weight: 800;
+    margin-left:5%;
+    margin-top:3%;
+}
+
+
+.btn-download {
+    width: 322px;
+    height: 92px;
+    border-radius: 30px;
+    font-size: 46px;
+    color: black;
+    background-color: white;
+    font-weight: 800;
+    transition: 0.4s linear;
+    margin-left: 40%;
+    margin-top:2%;
+}
+
+.btn-download:hover {
+    font-size: 47px;
+    background-color: #FFC61B;
+    color: white;
+}
+
+.gram-products {
+    margin-left:90%;
+    top:-60%;
+}
