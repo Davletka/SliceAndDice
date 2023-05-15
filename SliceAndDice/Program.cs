@@ -9,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddTransient<ISqlDataAccess, SqlDataAccess>();
-builder.Services.AddTransient<IUserData, UserData>();
+builder.Services.AddTransient<IDatabseData, DatabseData>();
+builder.Services.AddSingleton<SingletonServise>();
 
 var app = builder.Build();
 

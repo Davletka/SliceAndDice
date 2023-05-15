@@ -1,5 +1,7 @@
 ﻿@page "/main"
-
+@using SliceAndDice.Data;
+@inject SingletonServise singleton
+@inject NavigationManager navigate
 
 <div class="pizza-img">
     <img src="css/Images/mainPizza.png"/>
@@ -30,5 +32,11 @@
 </div>
 
 @code {
-
+    protected override void OnInitialized()
+    {
+        if (singleton.GetUser() == null)
+        {
+            navigate.NavigateTo("/");
+        }
+    }
 }

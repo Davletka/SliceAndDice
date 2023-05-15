@@ -1,87 +1,137 @@
-﻿
-@page "/menu"
+﻿@page "/menu"
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@using SliceAndDice.Data;
 
-<div class="card-menu">
-    <div class="card-img-menu">
-        <img src="css/Images/pizza-menu.png"/>
-    </div>
+@inject IDatabseData _db
+@inject SingletonServise singleton
+@inject NavigationManager navigate
+<InputFile OnChange="HandleFileSelected" />
 
-    <div class="card-text-menu">
-        <div class="card-name-menu">
-            Пицца бомба
-        </div>
-
-        <div class="card-subtitle-menu">
-            Состав: Помидоры, сыр, тесто
-        </div>
-    </div>
-
-
-    <div class="pay-card">
-        <div class="card-price-menu">
-            999
-        </div>
-
-        <div class="btn-card-menu">
-            <button class="btn-basket-menu">В Корзину</button>
-        </div>
-    </div>
-</div>
-
-<div class="card-menu">
-    <div class="card-img-menu">
-        <img src="css/Images/pizza-menu.png"/>
-    </div>
-
-    <div class="card-text-menu">
-        <div class="card-name-menu">
-            Пицца бомба
-        </div>
-
-        <div class="card-subtitle-menu">
-            Состав: Помидоры, сыр, тесто
-        </div>
-    </div>
+@if (selectedImage != null)
+{
+    <h4>Выбранное изображение:</h4>
+    <img src="@selectedImage" alt="Выбранное изображение" />
+    <button class="btn btn-primary" @onclick="UploadImage">Загрузить</button>
+}
 
 
-    <div class="pay-card">
-        <div class="card-price-menu">
-            999
-        </div>
+@if(dishs == null || dishs.Count() == 0){
+    <label style="
+margin-top: 30px;
+    width: 377px;
+    margin-left: 2%;
+    height: 40px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 35px;
+    display: flex;
+    align-items: flex-end;
+    text-align: center;
+    text-decoration-line: none;
+    color: wheat;
+">Loading...</label>
+}
+else{
+    @foreach (var i in dishs)
+    {
+            
+            <div class="card-menu">
+                <div class="card-img-menu">
+                <img src="@GetImageData(i.Image)" alt="Изображение" />
+                </div>
 
-        <div class="btn-card-menu">
-            <button class="btn-basket-menu">В Корзину</button>
-        </div>
-    </div>
-</div>
+                <div class="card-text-menu">
+                    <div class="card-name-menu">
+                        @i.Name
+                    </div>
 
-<div class="card-menu">
-    <div class="card-img-menu">
-        <img src="css/Images/pizza-menu.png"/>
-    </div>
-
-    <div class="card-text-menu">
-        <div class="card-name-menu">
-            Пицца бомба
-        </div>
-
-        <div class="card-subtitle-menu">
-            Состав: Помидоры, сыр, тесто
-        </div>
-    </div>
+                    <div class="card-subtitle-menu">
+                        @i.Description
+                    </div>
+                </div>
 
 
-    <div class="pay-card">
-        <div class="card-price-menu">
-            999
-        </div>
+                <div class="pay-card">
+                    <div class="card-price-menu">
+                        @i.Cost
+                    </div>
 
-        <div class="btn-card-menu">
-            <button class="btn-basket-menu">В Корзину</button>
-        </div>
-    </div>
-</div>
+                    <div class="btn-card-menu">
+                    <button @onclick="(() => AddInBasket(i.ID_DIsh))" class="btn-basket-menu">В Корзину</button>
+                    </div>
+                </div>
+            </div>
+        
+    }
+
+}
 
 @code {
 
+    List<DishModel> dishs = new List<DishModel>() {};
+    private byte[] imageData;
+    private string selectedImage;
+
+    private async Task HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        var buffer = new byte[file.Size];
+        await file.OpenReadStream().ReadAsync(buffer);
+        imageData = buffer;
+        selectedImage = $"data:{file.ContentType};base64,{Convert.ToBase64String(imageData)}";
+    }
+    public byte[] ResizeImage(byte[] imageData, int width, int height)
+    {
+        using (var image = Image.Load(imageData))
+        {
+            image.Mutate(x => x.Resize(width, height));
+            using (var ms = new MemoryStream())
+            {
+                image.Save(ms, new SixLabors.ImageSharp.Formats.Png.PngEncoder());
+                return ms.ToArray();
+            }
+        }
+    }
+    private async Task UploadImage()
+    {
+        imageData = ResizeImage(imageData, 310, 255);
+        // Сохранение изображения в базу данных
+        await _db.InsertDish(new DishModel
+            {
+                Name = "Пицца бомба",
+                Cost = 999,
+                Description = "Состав: Помидоры, сыр, тесто",
+                Image = imageData,
+                InMenu = 1
+            });
+
+        // Очистка выбранного изображения
+        imageData = null;
+        selectedImage = null;
+    }
+
+    public async void AddInBasket(int dishId)
+    {
+        await _db.InsertBasket(new BasketModel
+            {
+                Count = 1,
+                Dish_id = dishId,
+                User_id = singleton.GetUser().ID_User
+        });
+    }
+    protected  async override void OnInitialized()
+    {
+        if (singleton.GetUser() == null)
+        {
+            navigate.NavigateTo("/");
+        }
+        dishs = await _db.GetDish();
+        dishs = dishs.Where(element => element.InMenu == 1).ToList();
+        this.StateHasChanged();
+    }
+    private string GetImageData(Byte[] image)
+    {
+        return $"data:image;base64,{Convert.ToBase64String(image)}";
+    }
 }

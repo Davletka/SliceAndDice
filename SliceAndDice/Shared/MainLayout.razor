@@ -1,29 +1,62 @@
 ﻿@inherits LayoutComponentBase
+@using SliceAndDice.Data;
+@inject SingletonServise singleton
+@inject NavigationManager navigate
+
 
 <PageTitle>SliceAndDice</PageTitle>
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+        @if (singleton.GetUser() != null)
+        {
+            <div class="sidebar" style="display:block">
+                <NavMenu/>
+        </div>
+        }
+        else
+        {
+            <div class="sidebar" style="display:none">
+                <NavMenu />
+            </div>
+        }
 
     <main>
-        <div class="top-row">
-            <a href="/main">Главная</a>
-
+        @if (singleton.GetUser() != null)
+        {
+            <div class="top-row" style="display:block">
+                <a href="/main">Главная</a>
             <a href="/about">О нас</a>
 
-            <a href="/menu">Меню</a>
+                <a href="/menu">Меню</a>
 
-            <a href="/BuyAndDelivery">Оплата и доставка</a>
+                <a href="/BuyAndDelivery">Оплата и доставка</a>
 
-            <div class="my-avatar">
-                <a href="/profile"><img src="css/Images/avatar.png" /></a>
+                <div class="my-avatar">
+                    <a href="/profile"><img src="css/Images/avatar.png" /></a>
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+                <div class="top-row" style="display:none">
+                    <a href="/main">Главная</a>
+                <a href="/about">О нас</a>
+
+                    <a href="/menu">Меню</a>
+
+                    <a href="/BuyAndDelivery">Оплата и доставка</a>
+
+                    <div class="my-avatar">
+                        <a href="/profile"><img src="css/Images/avatar.png" /></a>
+                    </div>
+                </div>
+        }
 
         <article class="content">
             @Body
         </article>
     </main>
 </div>
+@code{
+
+}

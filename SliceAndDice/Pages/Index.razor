@@ -2,10 +2,11 @@
 
 @using DataAccessLibrary
 @using DataAccessLibrary.Models
+@using SliceAndDice.Data;
 
-@inject IUserData _db
+@inject IDatabseData _db
+@inject SingletonServise singleton
 @inject NavigationManager navigate
-@inject IJSRuntime JsRuntime
 
 <div class="backGroundUp">
     <div class="logoImage"></div>
@@ -40,14 +41,20 @@ margin-top: 30px;
     string password = "";
     private List<UserModel> users;
     private string ErrorMessage = "";
+    protected override void OnInitialized()
+    {
+        singleton.SetUser(null);
+    }
 
     public async void SignIn()
     {
         if (login != "" && password != "")
         {
             users = await _db.GetUser();
-            if (users.Where(element => element.Login == login && element.Password == password).Count() != 0)
+            users = users.Where(element => element.Login == login && element.Password == password).ToList();
+            if (users.Count() != 0)
             {
+                singleton.SetUser(users[0]);
                 navigate.NavigateTo("/main");
             }
             else

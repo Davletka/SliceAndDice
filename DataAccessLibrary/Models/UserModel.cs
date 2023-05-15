@@ -8,6 +8,7 @@ namespace DataAccessLibrary.Models
 {
     public class UserModel
     {
+        public int ID_User { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
         public string FName { get; set; }
