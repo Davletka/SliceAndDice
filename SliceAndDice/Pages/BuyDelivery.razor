@@ -78,7 +78,7 @@ else
 
     private void CreateOrder()
     {
-        
+
     }
     private async void IncreaseQuantity(BasketModel item, bool isPlus)
     {
@@ -110,6 +110,11 @@ else
         if (singleton.GetUser() == null)
         {
             navigate.NavigateTo("/");
+        }
+        List<OrderModel> orders = await _db.GetOrder();
+        if (orders.Where(element => element.User_id == singleton.GetUser().ID_User).Count() != 0)
+        {
+            navigate.NavigateTo("/zakaz");
         }
         dishs = await _db.GetDish();
         basket = await _db.GetBasket();

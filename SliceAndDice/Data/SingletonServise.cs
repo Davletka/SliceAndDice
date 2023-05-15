@@ -8,7 +8,6 @@ namespace SliceAndDice.Data
 
         public UserModel GetUser()
         {
-
             return user;
         }
         public void SetUser(UserModel newUser)

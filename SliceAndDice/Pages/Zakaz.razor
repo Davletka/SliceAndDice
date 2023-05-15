@@ -1,5 +1,12 @@
 ﻿
 @page "/zakaz"
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@using SliceAndDice.Data;
+
+@inject IDatabseData _db
+@inject SingletonServise singleton
+@inject NavigationManager navigate
 
 <div class="zakaz-form">
 
@@ -60,5 +67,18 @@
 </div>
 
 @code {
-
+    OrderModel order = null;
+    protected async override void OnInitialized()
+    {
+        if (singleton.GetUser() == null)
+        {
+            navigate.NavigateTo("/");
+        }
+        List<OrderModel> orders = await _db.GetOrder();
+        if (orders.Where(element => element.User_id == singleton.GetUser().ID_User).Count() == 0)
+        {
+            navigate.NavigateTo("/BuyAndDelivery");
+        }
+        order = orders.Where(element => element.User_id == singleton.GetUser().ID_User).First();
+    }
 }

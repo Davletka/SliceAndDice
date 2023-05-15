@@ -97,6 +97,7 @@ else{
     {
         imageData = ResizeImage(imageData, 310, 255);
         // Сохранение изображения в базу данных
+
         await _db.InsertDish(new DishModel
             {
                 Name = "Пицца бомба",
@@ -113,12 +114,17 @@ else{
 
     public async void AddInBasket(int dishId)
     {
-        await _db.InsertBasket(new BasketModel
-            {
-                Count = 1,
-                Dish_id = dishId,
-                User_id = singleton.GetUser().ID_User
-        });
+        List<BasketModel> basket = await _db.GetBasket();
+        if (basket.Where(element => element.Dish_id == dishId).Count() == 0)
+        {
+            await _db.InsertBasket(new BasketModel
+                {
+                    Count = 1,
+                    Dish_id = dishId,
+                    User_id = singleton.GetUser().ID_User
+                });
+        }
+
     }
     protected  async override void OnInitialized()
     {
