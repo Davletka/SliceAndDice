@@ -1,14 +1,65 @@
 ﻿@page "/"
 
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+
+@inject IUserData _db
+@inject NavigationManager navigate
+@inject IJSRuntime JsRuntime
+
 <div class="backGroundUp">
     <div class="logoImage"></div>
 </div>
 
 <div class="backGroundDown">
     <div class="items">
-        <input class="inputAuthoRectangle" placeholder="Логин" />
-        <input class="inputAuthoRectangle" placeholder="Пароль" />
-        <button class="btnAuth">Войти</button>
+                <label style="
+margin-top: 30px;
+    width: 377px;
+    margin-left: 2%;
+    height: 40px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 35px;
+    display: flex;
+    align-items: flex-end;
+    text-align: center;
+    text-decoration-line: none;
+    color: red;
+">@ErrorMessage</label>
+        <input @bind-value="login" class="inputAuthoRectangle" placeholder="Логин" />
+        <input @bind-value="password" class="inputAuthoRectangle" placeholder="Пароль" />
+        <button class="btnAuth" @onclick="@SignIn">Войти</button>
         <a class="hyperLinkReg" href="/registration">Нет аккаунт?</a>
+
     </div>
 </div>
+
+@code  {
+    string login = "";
+    string password = "";
+    private List<UserModel> users;
+    private string ErrorMessage = "";
+
+    public async void SignIn()
+    {
+        if (login != "" && password != "")
+        {
+            users = await _db.GetUser();
+            if (users.Where(element => element.Login == login && element.Password == password).Count() != 0)
+            {
+                navigate.NavigateTo("/main");
+            }
+            else
+            {
+                ErrorMessage = "Пользователя с такими данными нет.";
+                this.StateHasChanged();
+            }
+        }
+        else
+        {
+            ErrorMessage = "Не все поля заполнены.";
+            this.StateHasChanged();
+        }
+    }
+}
