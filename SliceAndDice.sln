@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SliceAndDice", "SliceAndDice\SliceAndDice.csproj", "{C794F92A-C2B8-4D54-BCF6-326848190136}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{D7CEE460-5C79-44B7-B381-6FC42AD92E69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C794F92A-C2B8-4D54-BCF6-326848190136}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C794F92A-C2B8-4D54-BCF6-326848190136}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C794F92A-C2B8-4D54-BCF6-326848190136}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7CEE460-5C79-44B7-B381-6FC42AD92E69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7CEE460-5C79-44B7-B381-6FC42AD92E69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7CEE460-5C79-44B7-B381-6FC42AD92E69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7CEE460-5C79-44B7-B381-6FC42AD92E69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

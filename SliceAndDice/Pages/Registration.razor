@@ -1,6 +1,11 @@
 ﻿﻿
 @page "/registration"
-@inject NavigationManager navManager
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+
+@inject IDatabseData _db
+@inject NavigationManager navigate
+@inject IJSRuntime JsRuntime
 
 <div class="backGroundUp">
     <div class="logoImage"></div>
@@ -8,14 +13,73 @@
 
 <div class="backGroundDown">
     <div class="items">
-        <input class="inputAuthoRectangle" placeholder="Логин" />
-        <input class="inputAuthoRectangle" placeholder="Пароль" />
-        <input class="inputAuthoRectangle" placeholder="Повтор пароля" />
-        <button class="btnAuth" style="font-size:40px; width:425px; margin-left:0%;">Зарегистрироваться</button>
+                        <label style="
+margin-top: 30px;
+    width: 377px;
+    margin-left: 2%;
+    height: 40px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 35px;
+    display: flex;
+    align-items: flex-end;
+    text-align: center;
+    text-decoration-line: none;
+    color: red;
+">@ErrorMessage</label>
+        <input @bind-value="login" class="inputAuthoRectangle" placeholder="Логин" />
+        <input @bind-value="password" class="inputAuthoRectangle" placeholder="Пароль" />
+        <input @bind-value="repeatPassword" class="inputAuthoRectangle" placeholder="Повтор пароля" />
+        <button @onclick="@SignUp" class="btnAuth" style="font-size:40px; width:425px; margin-left:0%;">Зарегистрироваться</button>
         <a class="hyperLinkReg" href="/">Есть аккаунт?</a>
     </div>
 </div>
 
 @code {
 
+    string login = "";
+    string password = "";
+    string repeatPassword = "";
+    private List<UserModel> users;
+    private string ErrorMessage = "";
+
+    public async void SignUp()
+    {
+        if (login != "" && password != "" )
+        {
+            if (password == repeatPassword)
+            {
+                users = await _db.GetUser();
+                if (users.Where(element => element.Login == login).Count() != 0)
+                {
+                    this.StateHasChanged();
+                    ErrorMessage = "Пользователя с таким логином уже существует.";
+                }
+                else
+                {
+                    await _db.InsertUser(new UserModel
+                    {
+                        Login = login,
+                        Password = password,
+                        Address = "",
+                        FName="",
+                        LName = "",
+                        PhoneNumber = ""
+
+                    });
+                    navigate.NavigateTo("/");
+                }
+            }
+            else
+            {
+                ErrorMessage = "Пароли не совпадают.";
+                this.StateHasChanged();
+            }
+        }
+        else
+        {
+            ErrorMessage = "Не все поля заполнены.";
+            this.StateHasChanged();
+        }
+    }
 }

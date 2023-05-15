@@ -1,22 +1,91 @@
 ﻿
 @page "/profile"
+@using DataAccessLibrary.Models;
+@using DataAccessLibrary;
+@using SliceAndDice.Data;
+@inject SingletonServise singleton
+@inject NavigationManager navigate
+@inject IDatabseData _db
 
 <div class="profile-form">
     <div class="profile-items">
-        <input type="text" placeholder="Логин"/>
+           <label style="
+margin-top: 30px;
+    width: 377px;
+    margin-left: 2%;
+    height: 40px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 35px;
+    display: flex;
+    align-items: flex-end;
+    text-align: center;
+    text-decoration-line: none;
+    color: red;
+">@ErrorMessage</label>
+        <input @bind-value="@login" type="text" placeholder="Логин"/>
 
-        <input type="text" placeholder="Имя" />
+        <input @bind-value="@FName" type="text" placeholder="Имя" />
 
-        <input type="text" placeholder="Фамилия" />
+        <input @bind-value="@LName" type="text" placeholder="Фамилия" />
 
-        <input type="text" placeholder="Адрес" />
+        <input @bind-value="@Address" type="text" placeholder="Адрес" />
 
-        <input type="tel" placeholder="Номер телефона" />
+        <input @bind-value="@PhoneNumber" type="tel" placeholder="Номер телефона" />
 
-        <button type="button">Сохранить</button>
+        <button @onclick="UpdateUserData" type="button">Сохранить</button>
     </div>
 </div>
 
 @code {
+    UserModel user = null;
+    string ErrorMessage = "";
+    string login = "";
+    string FName = "";
+    string LName = "";
+    string Address = "";
+    string PhoneNumber = "";
+    private async void UpdateUserData()
+    {
+        ErrorMessage = "";
+        if (login != "" && FName != "" && LName != "" && Address != "" && PhoneNumber != "" )
+        {
+            List<UserModel> users = await _db.GetUser();
+            if (users.Where(element => element.Login == login && element.ID_User != user.ID_User).Count() == 0)
+            {
+                user.Login = login;
+                user.FName = FName;
+                user.LName = LName;
+                user.Address = Address;
+                user.PhoneNumber = PhoneNumber;
+                _db.UpdateUser(user);
+                ErrorMessage = "Успешно.";
+            }
+            else
+            {
+                ErrorMessage = "Пользователь с таким логином уже есть.";
+            }
+        }
+        else
+        {
+            ErrorMessage = "Не все поля заполнены.";
+        }
 
+    }
+    protected override void OnInitialized()
+    {
+        user = singleton.GetUser();
+        if (user == null)
+        {
+            navigate.NavigateTo("/");
+        }
+        else
+        {
+            login = user.Login;
+            FName = user.FName;
+            LName = user.LName;
+            Address = user.Address;
+            PhoneNumber = user.PhoneNumber;
+        }
+    }
 }

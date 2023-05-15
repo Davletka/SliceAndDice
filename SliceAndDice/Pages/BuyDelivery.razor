@@ -1,140 +1,123 @@
 ﻿
 @page "/BuyAndDelivery"
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@using SliceAndDice.Data;
 
-<div class="card-menu">
-    <div class="card-img-menu">
-        <img src="css/Images/pizza-menu.png"/>
-    </div>
+@inject IDatabseData _db
+@inject SingletonServise singleton
+@inject NavigationManager navigate
 
-    <div class="card-text-menu">
-        <div class="card-name-menu">
-            Пицца бомба
+
+@if (basket == null || basket.Count() == 0)
+{
+    <label style="
+margin-top: 30px;
+    width: 377px;
+    margin-left: 2%;
+    height: 40px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 35px;
+    display: flex;
+    align-items: flex-end;
+    text-align: center;
+    text-decoration-line: none;
+    color: wheat;
+">Loading...</label>
+}
+else
+{
+    @foreach (var i in basket)
+    {
+
+        <div class="card-menu">
+            <div class="card-img-menu">
+                <img src="@GetImageData(dishs.Where(element => element.ID_DIsh == i.Dish_id).First().Image)" alt="Изображение" />
+            </div>
+
+            <div class="card-text-menu">
+                <div class="card-name-menu">
+                    @dishs.Where(element => element.ID_DIsh == i.Dish_id).First().Name
+                </div>
+
+                <div class="card-subtitle-menu">
+                    @dishs.Where(element => element.ID_DIsh == i.Dish_id).First().Description
+                </div>
+            </div>
+
+
+            <div class="pay-card-count">
+
+                <div class="card-price-menu">
+                    @(dishs.Where(element => element.ID_DIsh == i.Dish_id).First().Cost * i.Count)
+                </div>
+
+                <div class="count-menu">
+                    <button @onclick="(() => IncreaseQuantity(i, false))" class="btn-count">-</button>
+
+                    <span class="card-subtitle-menu">@i.Count</span>
+
+                    <button @onclick="(() => IncreaseQuantity(i, true))" class="btn-count">+</button>
+                </div>
+
+            </div>
         </div>
 
-        <div class="card-subtitle-menu">
-            Состав: Помидоры, сыр, тесто
-        </div>
-    </div>
 
+    }
 
-    <div class="pay-card-count">
-
-        <div class="card-price-menu">
-            999
-        </div>
-
-        <div class="count-menu">
-            <button class="btn-count">-</button>
-
-            <span class="card-subtitle-menu">1</span>
-
-            <button class="btn-count">+</button>
-        </div>
-
-    </div>
-</div>
-
-<div class="card-menu">
-    <div class="card-img-menu">
-        <img src="css/Images/pizza-menu.png"/>
-    </div>
-
-    <div class="card-text-menu">
-        <div class="card-name-menu">
-            Пицца бомба
-        </div>
-
-        <div class="card-subtitle-menu">
-            Состав: Помидоры, сыр, тесто
-        </div>
-    </div>
-
-
-    <div class="pay-card-count">
-
-        <div class="card-price-menu">
-            999
-        </div>
-
-        <div class="count-menu">
-            <button class="btn-count">-</button>
-
-            <span class="card-subtitle-menu">1</span>
-
-            <button class="btn-count">+</button>
-        </div>
-
-    </div>
-</div>
-
-<div class="card-menu">
-    <div class="card-img-menu">
-        <img src="css/Images/pizza-menu.png"/>
-    </div>
-
-    <div class="card-text-menu">
-        <div class="card-name-menu">
-            Пицца бомба
-        </div>
-
-        <div class="card-subtitle-menu">
-            Состав: Помидоры, сыр, тесто
-        </div>
-    </div>
-
-
-    <div class="pay-card-count">
-
-        <div class="card-price-menu">
-            999
-        </div>
-
-        <div class="count-menu">
-            <button class="btn-count">-</button>
-
-            <span class="card-subtitle-menu">1</span>
-
-            <button class="btn-count">+</button>
-        </div>
-
-    </div>
-</div>
-
-<div class="card-menu">
-    <div class="card-img-menu">
-        <img src="css/Images/pizza-menu.png"/>
-    </div>
-
-    <div class="card-text-menu">
-        <div class="card-name-menu">
-            Пицца бомба
-        </div>
-
-        <div class="card-subtitle-menu">
-            Состав: Помидоры, сыр, тесто
-        </div>
-    </div>
-
-
-    <div class="pay-card-count">
-
-        <div class="card-price-menu">
-            999
-        </div>
-
-        <div class="count-menu">
-            <button class="btn-count">-</button>
-
-            <span class="card-subtitle-menu">1</span>
-
-            <button class="btn-count">+</button>
-        </div>
-
-    </div>
-</div>
+}
 
 <button class="zakaz-pay">Заказать</button>
 
 @code {
 
+    List<BasketModel> basket = new List<BasketModel>() { };
+    List<DishModel> dishs = new List<DishModel>() { };
+
+    private void CreateOrder()
+    {
+        
+    }
+    private async void IncreaseQuantity(BasketModel item, bool isPlus)
+    {
+        if (isPlus)
+        {
+            item.Count++;
+        }
+        else
+        {
+            if (item.Count == 1)
+            {
+                _db.DelteBasket(item);
+                basket = await _db.GetBasket();
+                StateHasChanged();
+                return;
+            }
+            else
+            {
+                item.Count--;
+            }
+        }
+        _db.UpdateBasket(item);
+        this.StateHasChanged();
+
+    }
+
+    protected async override void OnInitialized()
+    {
+        if (singleton.GetUser() == null)
+        {
+            navigate.NavigateTo("/");
+        }
+        dishs = await _db.GetDish();
+        basket = await _db.GetBasket();
+        this.StateHasChanged();
+    }
+    private string GetImageData(Byte[] image)
+    {
+        return $"data:image;base64,{Convert.ToBase64String(image)}";
+    }
 }
+
