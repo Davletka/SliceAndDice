@@ -77,15 +77,58 @@ namespace DataAccessLibrary
         }
         public Task<List<OrderModel>> GetOrder()
         {
-            string sql = "select * from dbo.Order";
+            string sql = "select * from dbo.Orders";
 
             return _db.LoadData<OrderModel, dynamic>(sql, new { });
         }
 
         public Task InsertOrder(OrderModel user)
         {
-            string sql = @"insert into dbo.Order(User_id, Employee_id, Status_id, Sum)
+            string sql = @"insert into dbo.Orders(User_id, Employee_id, Status_id, Sum)
                 values (@User_id, @Employee_id, @Status_id, @Sum);";
+            return _db.SaveData(sql, user);
+        }
+        public Task<List<StatusModel>> GetStatus()
+        {
+            string sql = "select * from dbo.Status";
+
+            return _db.LoadData<StatusModel, dynamic>(sql, new { });
+        }
+        public Task InsertOrderDish(Order_DishModel user)
+        {
+            string sql = @"insert into dbo.Order_Dish(Order_id, Dish_id, Count)
+                values (@Order_id, @Dish_id, @Count);";
+            return _db.SaveData(sql, user);
+        }
+        public Task<List<Order_DishModel>> GetOrderDish()
+        {
+            string sql = "select * from dbo.Order_Dish";
+
+            return _db.LoadData<Order_DishModel, dynamic>(sql, new { });
+        }
+        public Task<List<RoleModel>> GetRole()
+        {
+            string sql = "select * from dbo.Role";
+
+            return _db.LoadData<RoleModel, dynamic>(sql, new { });
+        }
+        public Task DelteEmployee(EmployeeModel item)
+        {
+            var sql = "DELETE FROM (Employee WHERE ID_Employee = @ID_Employee";
+            return _db.SaveData(sql, item);
+
+        }
+        public Task<List<EmployeeModel>> GetEmployee()
+        {
+            string sql = "select * from dbo.Employee";
+
+            return _db.LoadData<EmployeeModel, dynamic>(sql, new { });
+        }
+
+        public Task InsertEmployee(EmployeeModel user)
+        {
+            string sql = @"insert into dbo.Orders(Salary, Role_id)
+                values (@Salary, @Role_id);";
             return _db.SaveData(sql, user);
         }
     }

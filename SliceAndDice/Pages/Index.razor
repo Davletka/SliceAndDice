@@ -51,10 +51,13 @@ margin-top: 30px;
         if (login != "" && password != "")
         {
             users = await _db.GetUser();
+            List<RoleModel> roles = await _db.GetRole();
+            List<EmployeeModel> employees = await _db.GetEmployee();
             users = users.Where(element => element.Login == login && element.Password == password).ToList();
             if (users.Count() != 0)
             {
                 singleton.SetUser(users[0]);
+                singleton.SetRole(users[0].Employee_id != null ? roles.Where(x => x.ID_Role == employees.Where(element => element.ID_Employee == users[0].Employee_id).First().Role_id).First().Name : "Пользователь");
                 navigate.NavigateTo("/main");
             }
             else

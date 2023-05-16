@@ -11,63 +11,51 @@
 <div class="zakaz-form">
 
     <div class="title-zakaz">
-        Готовиться
+        @status
     </div>
+    @foreach (var i in orderDishs)
+    {
+        
+        <div class="text-zakaz">
 
-            <div class="text-zakaz">
+                    <div class="name-subtitle-zakaz">
 
-                <div class="name-subtitle-zakaz">
+                    <div class="name-zakaz">
+                    @i.Name
+                    </div>
 
-                <div class="name-zakaz">
-                    Пицца бомба
+                    <div class="subtitle-zakaz">
+                    @i.Description
                 </div>
 
-                <div class="subtitle-zakaz">
-                    Состав: Помидоры, сыр, тесто
+                    </div>
+
+                    <div class="count-zakaz">
+                        @order_Dishes.Where(element => element.Dish_id == i.ID_DIsh).First().Count шт
+                    </div>
+
+                    <div class="price-zakaz">
+                @(i.Cost * order_Dishes.Where(element => element.Dish_id == i.ID_DIsh).First().Count)
+                    </div>
                 </div>
+    }
 
-                </div>
-
-                <div class="count-zakaz">
-                    1 шт
-                </div>
-
-                <div class="price-zakaz">
-                    999
-                </div>
-            </div>
-
-                <div class="text-zakaz">
-
-        <div class="name-subtitle-zakaz">
-
-        <div class="name-zakaz">
-            Пицца бомба
-        </div>
-
-        <div class="subtitle-zakaz">
-            Состав: Помидоры, сыр, тесто
-        </div>
-
-        </div>
-
-        <div class="count-zakaz">
-            1 шт
-        </div>
-
-        <div class="price-zakaz">
-            999
-        </div>
+       
     </div>
 
 
     <div class="total-price">
-        Всего: 9999
+        Всего: @order.Sum
     </div>
-</div>
+
 
 @code {
-    OrderModel order = null;
+    OrderModel order = new OrderModel();
+    List<StatusModel> statuss = new List<StatusModel>() { };
+    List<DishModel> dishs = new List<DishModel>() { };
+    List<DishModel> orderDishs = new List<DishModel>() { };
+    List<Order_DishModel> order_Dishes = new List<Order_DishModel>() { };
+    string status = "";
     protected async override void OnInitialized()
     {
         if (singleton.GetUser() == null)
@@ -80,5 +68,15 @@
             navigate.NavigateTo("/BuyAndDelivery");
         }
         order = orders.Where(element => element.User_id == singleton.GetUser().ID_User).First();
+        statuss = await _db.GetStatus();
+        status = (statuss.Where(element => element.ID_Status == order.Status_id).First().Name);
+        dishs = await _db.GetDish();
+        order_Dishes = await _db.GetOrderDish();
+        foreach (var i in order_Dishes.Where(x => x.Order_id == order.ID_Order))
+        {
+            orderDishs.Add(dishs.Where(element => element.ID_DIsh == i.Dish_id).First());
+        }
+        this.StateHasChanged();
+
     }
 }

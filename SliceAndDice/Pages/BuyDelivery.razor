@@ -69,16 +69,38 @@ else
 
 }
 
-<button class="zakaz-pay">Заказать</button>
+<button @onclick = "CreateOrder" class="zakaz-pay">Заказать</button>
 
 @code {
 
     List<BasketModel> basket = new List<BasketModel>() { };
     List<DishModel> dishs = new List<DishModel>() { };
 
-    private void CreateOrder()
+    private async void CreateOrder()
     {
-
+        int sum = 0;
+        foreach (var i in basket)
+        {
+            sum = sum + (dishs.Where(element => element.ID_DIsh == i.Dish_id).First().Cost * i.Count);
+        }
+        await _db.InsertOrder(new OrderModel
+            {
+                Status_id = 2,
+                User_id = singleton.GetUser().ID_User,
+                Sum = sum
+            });
+            List<OrderModel> orders = await _db.GetOrder();
+            int orderId = orders.Where(element => element.User_id == singleton.GetUser().ID_User).First().ID_Order;
+        foreach (var i in basket)
+        {
+            await _db.InsertOrderDish(new Order_DishModel
+                {
+                    Count = i.Count,
+                    Dish_id = i.Dish_id,
+                    Order_id = orderId
+                });
+        }
+        navigate.NavigateTo("/zakaz");
     }
     private async void IncreaseQuantity(BasketModel item, bool isPlus)
     {
@@ -90,7 +112,7 @@ else
         {
             if (item.Count == 1)
             {
-                _db.DelteBasket(item);
+               await _db.DelteBasket(item);
                 basket = await _db.GetBasket();
                 StateHasChanged();
                 return;
@@ -100,7 +122,7 @@ else
                 item.Count--;
             }
         }
-        _db.UpdateBasket(item);
+        await _db.UpdateBasket(item);
         this.StateHasChanged();
 
     }

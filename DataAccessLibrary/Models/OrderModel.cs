@@ -10,7 +10,7 @@ namespace DataAccessLibrary.Models
     {
         public int ID_Order { get; set; }
         public int User_id { get; set; }
-        public int Employee_id { get; set; }
+        public int? Employee_id { get; set; }
         public int Status_id { get; set; }
         public int Sum { get; set; }
     }
